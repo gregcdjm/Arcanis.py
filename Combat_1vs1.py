@@ -25,6 +25,7 @@ def main():
     #                       ---------- 5) -----------
     # Puis nous les faisons combatre, après verification de leurs enregistrements dans la data base.
     combat()
+    print("Fermeture de l'arène ")
     print("Aurevoir et à bientôt sur Arcanis")
     # RENDEZ VOUS dans la fonction "combat"L70.
 
@@ -43,27 +44,29 @@ def create_or_check_if_user_is_alive():
             if SuperPlayer.get_health(list_players[i - 1]) <= 0:
                 # S'il est inapte, on écrit un message, puis on réinitialise la boucle au début.
                 print("Ce personnage est mort !")
+                print("Enregistrer le nom d'un combattant vivant ! ")
                 i = len(list_players)
                 continue
             # S'il est apte on ferme la fonction en renvoyant l'index correspondant.
-            print("Combattant prêt pour le combat !")
+            
             return i-1
         # S'il n'y a pas de correspondance on demande à l'utilisateur de recommencer ou enregistrer un 
         # nouveau joueur.
         if i == 1:
             print("Ce nom n'est pas enregistré comme un joueur veuillez l'enregistrer ou réessayer.")                
             while(1):
-                log_or_sign = input("Taper : sign-in (pour enregistrer un nouveau joueur)" 
-                                    "or log-in (pour rentrer un combattant dans l'arène)")
+                log_or_sign = input("Taper : A pour enregistrer un nouveau joueur" 
+                                    " ou B pour rentrer un combattant dans l'arène : ")
                 # Si l'utilisateur choisit d'enregistrer un nouveau joueur, le programme le redirige
                 # dans la fonction new_player
-                if log_or_sign == "sign-in":
+                if log_or_sign == "A" or log_or_sign == "a":
                     print("-----Redirection au bureau des inscriptions -----")
                     new_player()
-                elif log_or_sign == "log-in":
+                elif log_or_sign == "B" or log_or_sign == "b":
                 # S'il choisit d'enregister un combattant on le redirige au début de la fonction en quittant
                 # cette boucle et en rénitialisant i.
                      print("-----Redirection à l'arène -----")
+                     print("Entrez le nom du combattant enregistré : ")
                      break  # <--- On quitte la boucle
             i = len(list_players) # <--- On rénitialise i.
             continue # <--- On revient au début de la boucle.
@@ -79,8 +82,9 @@ def combat():
     if ask_combat == "oui":
         print("Ouverture de l'arène.... ")
     # Puis le programme va chercher l'index des combattants de la liste "list_players".
-        print("Entrez le pseudo du premier combattant : ")
+        print("Entrez le pseudo du premier combattant : ")        
         index_player1 = create_or_check_if_user_is_alive()
+        print("1er Combattant prêt pour le combat !")
         while(1):
             print("Entrez le pseudo du Deuxièmme combattant : ")
             index_player2 = create_or_check_if_user_is_alive()
@@ -88,6 +92,7 @@ def combat():
                 print("Le combatant {} est déjà  enregistré, recommencer "
                       .format(SuperPlayer.get_pseudo(list_players[index_player2])))
             else:
+                print("2ème Combattant prêt pour le combat !")
                 break
     else:
     # Si non le programme s'arrête.
@@ -98,6 +103,8 @@ def combat():
     
     #                           ---------- 8) -----------
     # Une fois la présentation faite place au combat.
+    print("Début du combat ! ")
+    print(" ---------- ")
     while(1):
         # Le joueur 1 attaque le joueur 2 une fois.
         print(str(SuperPlayer.get_pseudo(list_players[index_player1]))+" attaque "+
@@ -137,7 +144,7 @@ def combat():
         # Si oui on rappelle la fonction combat.
         combat()    
     # Si non on affiche la fermeture de l'arène, puis c'est ici que la fonction et le programme s'arrête.
-    print("Fermeture de l'arène ")
+    
     # RENDEZ VOUS à la fin du Fichier L 156.
 
         
